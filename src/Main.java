@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,6 +21,23 @@ public class Main {
         trials.add(finalExam);
         trials.add(finalExam1);
 
+        System.out.println(trials);
+
+        TrialFactory trialFactory = new TrialFactory();
+        /*Trial trial = trialFactory.getTrial("Exam", "OOP|100|10|10/06/2020|Teacher");
+        System.out.println(trial);*/
+
+        Scanner scanner = new Scanner(System.in);
+        String buff;
+
+        System.out.println("\nEnter trial info: ");
+        while (!(buff = scanner.nextLine()).isEmpty()){
+            System.out.println("Enter type of trial: ");
+            String type = scanner.nextLine();
+            trials.add(trialFactory.getTrial(type, buff));
+        }
+
+        scanner.close();
         System.out.println(trials);
     }
 }
