@@ -1,8 +1,8 @@
 import java.text.ParseException;
 
 public class TrialFactory {
-    public Trial getTrial(String trialType, String trialInfo){
-        switch (trialType){
+    public static AbstractTest getTrial(String trialType, String trialInfo) {
+        switch (trialType) {
             case "Exam":
                 try {
                     return new TrialConverter().stringToExam(trialInfo);
@@ -16,7 +16,11 @@ public class TrialFactory {
                     e.printStackTrace();
                 }
             case "Test":
-                return new Test();
+                try {
+                    return new TrialConverter().stringToTest(trialInfo);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             default:
                 throw new IllegalArgumentException("Wrong trial type:" + trialType);
         }

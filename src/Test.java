@@ -1,7 +1,7 @@
 import java.util.Date;
 import java.util.Objects;
 
-public class Test extends Trial {
+public class Test extends AbstractTest {
     private int numberOfQuestions;
 
     public Test() {

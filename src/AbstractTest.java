@@ -1,16 +1,16 @@
 import java.util.Date;
 import java.util.Objects;
 
-abstract public class Trial {
+public abstract class AbstractTest {
     public static int objectsCreatedCount = 0;
     private String subject;
     private short duration;
     private short mark;
     private Date date;
 
-    public Trial(){}
+    public AbstractTest(){}
 
-    public Trial(String subject, short duration, short mark, Date date) {
+    public AbstractTest(String subject, short duration, short mark, Date date) {
         this.subject = subject;
         this.duration = duration;
         this.mark = mark;
@@ -18,7 +18,7 @@ abstract public class Trial {
         objectsCreatedCount++;
     }
 
-    public Trial(Trial trial){
+    public AbstractTest(AbstractTest trial){
         this.subject = trial.subject;
         this.duration = trial.duration;
         this.mark = trial.mark;
@@ -31,7 +31,7 @@ abstract public class Trial {
     }
 
     public static void setObjectsCreatedCount(int objectsCreatedCount) {
-        Trial.objectsCreatedCount = objectsCreatedCount;
+        AbstractTest.objectsCreatedCount = objectsCreatedCount;
     }
 
     public String getSubject() {
@@ -71,7 +71,7 @@ abstract public class Trial {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Trial trial = (Trial) o;
+        AbstractTest trial = (AbstractTest) o;
         return duration == trial.duration &&
                 mark == trial.mark &&
                 Objects.equals(subject, trial.subject);
