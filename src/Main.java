@@ -106,11 +106,17 @@ public class Main {
         sortMapping.put("numOfQuestionsSort", numOfQuestionsSort);
         sortMapping.put("examinerSort", examinerSort);
 
-        System.out.println(tests.getByIndex(0));
-        tests = tests.sort(tests, subjectSort);
+        /*LinkedList<Integer> l = new LinkedList<>();
+        l.add(10);
+        l.add(1);
+        l.add(5);
+        l.add(15);
+        l.swap(l.getByIndex(1), l.getByIndex(2));
+        System.out.println(l);*/
+        tests = tests.sort(tests, durationSort);
        // System.out.println(tests.getByIndex(0) + "\n" + test);
         //tests.swap(tests.getByIndex(0), tests.getByIndex(1));
-      //  System.out.println(tests);
+        System.out.println(tests);
 
     }
 }

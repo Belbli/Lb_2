@@ -3,7 +3,7 @@ package AbstractTest;
 import java.util.Date;
 import java.util.Objects;
 
-public class FinalExam extends Exam {
+public class FinalExam extends Exam implements AbstractTestComparable{
     private boolean isOral;
 
     public FinalExam(){
@@ -28,10 +28,6 @@ public class FinalExam extends Exam {
         isOral = oral;
     }
 
-    public String getClassName(){
-        return super.getClassName() + "FinalExam";
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,5 +48,11 @@ public class FinalExam extends Exam {
         return super.toString() + "FinalExam{" +
                 "isOral=" + isOral +
                 '}' + '\n';
+    }
+
+    @Override
+    public int compare(AbstractTest o) {
+        FinalExam test = (FinalExam) o;
+        return this.getSubject().compareTo(test.getSubject());
     }
 }

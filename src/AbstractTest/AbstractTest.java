@@ -3,7 +3,7 @@ package AbstractTest;
 import java.util.Date;
 import java.util.Objects;
 
-public abstract class AbstractTest{
+public abstract class AbstractTest implements AbstractTestComparable{
     public static int objectsCreatedCount = 0;
     private String subject;
     private short duration;
@@ -70,10 +70,6 @@ public abstract class AbstractTest{
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public String getClassName(){
-        return "AbstractTest";
     }
 
     @Override

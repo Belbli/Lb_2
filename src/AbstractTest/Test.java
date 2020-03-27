@@ -3,7 +3,7 @@ package AbstractTest;
 import java.util.Date;
 import java.util.Objects;
 
-public class Test extends AbstractTest {
+public class Test extends AbstractTest implements AbstractTestComparable{
     private int numberOfQuestions;
 
     public Test() {
@@ -26,10 +26,6 @@ public class Test extends AbstractTest {
 
     public void setNumberOfQuestions(int numberOfQuestions) {
         this.numberOfQuestions = numberOfQuestions;
-    }
-
-    public String getClassName(){
-        return super.getClassName() + "Test";
     }
 
     @Override
@@ -55,4 +51,9 @@ public class Test extends AbstractTest {
     }
 
 
+    @Override
+    public int compare(AbstractTest o) {
+        Test test = (Test) o;
+        return this.getNumberOfQuestions() - ((Test) o).getNumberOfQuestions();
+    }
 }

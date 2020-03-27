@@ -3,7 +3,7 @@ package AbstractTest;
 import java.util.Date;
 import java.util.Objects;
 
-public class Exam extends AbstractTest {
+public class Exam extends AbstractTest implements AbstractTestComparable{
     private String examiner;
 
     public Exam(){
@@ -28,10 +28,6 @@ public class Exam extends AbstractTest {
         this.examiner = examiner;
     }
 
-    public String getClassName(){
-        return super.getClassName() + "Exam";
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,5 +48,11 @@ public class Exam extends AbstractTest {
         return super.toString() + "Exam{" +
                 "examiner='" + examiner + '\'' +
                 '}' + '\n';
+    }
+
+    @Override
+    public int compare(AbstractTest o) {
+        Exam test = (Exam) o;
+        return this.getExaminer().compareTo(test.getExaminer());
     }
 }

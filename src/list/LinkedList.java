@@ -3,7 +3,7 @@ import AbstractTest.AbstractTest;
 
 import java.util.function.BiFunction;
 
-public class LinkedList <E>{
+public class LinkedList <E extends AbstractTest>{
     private int size;
     private Node<E> first;
     private Node<E> last;
@@ -18,6 +18,15 @@ public class LinkedList <E>{
         E item;
         LinkedList.Node<E> next;
         LinkedList.Node<E> prev;
+
+        public Node() {
+        }
+
+        public Node(Node<E> node){
+            this.prev = node.prev;
+            this.item = node.item;
+            this.next = node.next;
+        }
 
         Node(LinkedList.Node<E> prev, E element, LinkedList.Node<E> next) {
             this.item = element;
@@ -153,20 +162,61 @@ public class LinkedList <E>{
         right.item = tmp;
     }
 
-    public LinkedList sort(LinkedList<E> list, BiFunction< E , E, Integer> sortingField) {
+    public LinkedList sort(LinkedList list, BiFunction< E , E, Integer> sortingField) {
         boolean flag = true;
         while (flag) {
             Node<E> le = list.first;
             flag = false;
             while (le != list.last) {
-                if (sortingField.apply(le.item, le.next.item) > 0) {
+                if (le.item.getClass().getName().compareTo(le.next.item.getClass().getName()) > 0) {
                     swap(le, le.next);
                     flag = true;
                 }
-                System.out.println(le.item.getClass().getName().compareTo(le.next.getClass().getName()));
                 le = le.next;
             }
         }
+        flag = true;
+        while (flag) {
+            Node<E> le = list.first;
+            flag = false;
+            while (le != list.last) {
+                if (le.item.getClass().getName().compareTo(le.next.item.getClass().getName()) == 0 && sortingField.apply(le.item, le.next.item) > 0) {
+                    swap(le, le.next);
+                    flag = true;
+                }
+                le = le.next;
+            }
+        }
+
+        return list;
+    }
+
+    public LinkedList sort2(LinkedList<E> list){
+        boolean flag = true;
+        while (flag) {
+            Node<E> le = list.first;
+            flag = false;
+            while (le != list.last) {
+                if (le.item.getClass().getName().compareTo(le.next.item.getClass().getName()) > 0) {
+                    swap(le, le.next);
+                    flag = true;
+                }
+                le = le.next;
+            }
+        }
+        flag = true;
+        while (flag) {
+            Node<E> le = list.first;
+            flag = false;
+            while (le != list.last) {
+                if (le.item.getClass().getName().compareTo(le.next.item.getClass().getName()) == 0 && le.item.compare(le.next.item) > 0) {
+                    swap(le, le.next);
+                    flag = true;
+                }
+                le = le.next;
+            }
+        }
+
         return list;
     }
 }
