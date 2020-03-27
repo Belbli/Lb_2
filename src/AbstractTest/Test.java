@@ -1,3 +1,5 @@
+package AbstractTest;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,7 +10,7 @@ public class Test extends AbstractTest {
         objectsCreatedCount++;
     }
 
-    public Test(String subject, short duration, short mark, int numberOfQuestions, Date date) {
+    public Test(String subject, short duration, short mark, Date date, int numberOfQuestions) {
         super(subject, duration, mark, date);
         this.numberOfQuestions = numberOfQuestions;
     }
@@ -24,6 +26,10 @@ public class Test extends AbstractTest {
 
     public void setNumberOfQuestions(int numberOfQuestions) {
         this.numberOfQuestions = numberOfQuestions;
+    }
+
+    public String getClassName(){
+        return super.getClassName() + "Test";
     }
 
     @Override
@@ -47,4 +53,6 @@ public class Test extends AbstractTest {
                 "numberOfQuestions=" + numberOfQuestions +
                 '}' + '\n';
     }
+
+
 }

@@ -1,3 +1,5 @@
+package AbstractTest;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -16,6 +18,18 @@ public class FinalExam extends Exam {
     public FinalExam(FinalExam finalExam){
         super(finalExam);
         this.isOral = finalExam.isOral;
+    }
+
+    public boolean isOral() {
+        return isOral;
+    }
+
+    public void setOral(boolean oral) {
+        isOral = oral;
+    }
+
+    public String getClassName(){
+        return super.getClassName() + "FinalExam";
     }
 
     @Override

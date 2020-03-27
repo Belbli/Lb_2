@@ -1,3 +1,5 @@
+package AbstractTest;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -24,6 +26,10 @@ public class Exam extends AbstractTest {
 
     public void setExaminer(String examiner) {
         this.examiner = examiner;
+    }
+
+    public String getClassName(){
+        return super.getClassName() + "Exam";
     }
 
     @Override

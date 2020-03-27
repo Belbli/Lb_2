@@ -1,7 +1,9 @@
+package AbstractTest;
+
 import java.util.Date;
 import java.util.Objects;
 
-public abstract class AbstractTest {
+public abstract class AbstractTest{
     public static int objectsCreatedCount = 0;
     private String subject;
     private short duration;
@@ -29,7 +31,6 @@ public abstract class AbstractTest {
     public static int getObjectsCreatedCount() {
         return objectsCreatedCount;
     }
-
     public static void setObjectsCreatedCount(int objectsCreatedCount) {
         AbstractTest.objectsCreatedCount = objectsCreatedCount;
     }
@@ -37,15 +38,12 @@ public abstract class AbstractTest {
     public String getSubject() {
         return subject;
     }
-
     public void setSubject(String subject) {
         this.subject = subject;
     }
-
     public short getDuration() {
         return duration;
     }
-
     public void setDuration(short duration) {
         this.duration = duration;
     }
@@ -57,24 +55,35 @@ public abstract class AbstractTest {
     public void setMark(short mark) {
         this.mark = mark;
     }
-
     @Override
     public String toString() {
-        return "Trial{" +
+        return "AbstractTest{" +
                 "subject='" + subject + '\'' +
                 ", duration=" + duration +
                 ", mark=" + mark +
                 '}' + "date=" + date + ' ';
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getClassName(){
+        return "AbstractTest";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AbstractTest trial = (AbstractTest) o;
-        return duration == trial.duration &&
-                mark == trial.mark &&
-                Objects.equals(subject, trial.subject);
+        AbstractTest test = (AbstractTest) o;
+        return duration == test.duration &&
+                mark == test.mark &&
+                Objects.equals(subject, test.subject);
     }
 
     @Override

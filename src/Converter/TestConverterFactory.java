@@ -1,3 +1,6 @@
+package Converter;
+import AbstractTest.*;
+
 public class TestConverterFactory{
     public static Converter<String, ? extends AbstractTest> getConverter(String converterType) {
         switch (converterType) {
