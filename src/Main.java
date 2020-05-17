@@ -29,9 +29,16 @@ public class Main {
         List<AbstractTest> at = new ArrayList<>();
         at.add(exam1);
 
+        FileOutputStream out = new FileOutputStream("data3.json");
+        try(ObjectOutputStream objOut = new ObjectOutputStream(out)){
 
-        exam1.writeToJSON("1234.json");
-        exam1.readFromJSON("1234.json");
+            objOut.writeObject(exam1);
+            objOut.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //exam1.readFromJSON("1234.json");
 
 //Math|180|10|07/07/2018|Examiner
         /*List<AbstractTest> testList = new ArrayList();

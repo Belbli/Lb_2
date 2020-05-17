@@ -78,7 +78,7 @@ public class Exam extends AbstractTest {
         try {
             FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            writeObject(oos);
+            oos.writeObject(this);
             oos.flush();
             oos.close();
             fos.flush();
