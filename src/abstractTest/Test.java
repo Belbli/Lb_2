@@ -1,9 +1,9 @@
-package AbstractTest;
+package abstractTest;
 
 import java.util.Date;
 import java.util.Objects;
 
-public class Test extends AbstractTest implements AbstractTestComparable{
+public class Test extends AbstractTest{
     private int numberOfQuestions;
 
     public Test() {
@@ -45,15 +45,20 @@ public class Test extends AbstractTest implements AbstractTestComparable{
 
     @Override
     public String toString() {
-        return super.toString() + "Test{" +
-                "numberOfQuestions=" + numberOfQuestions +
-                '}' + '\n';
+        return super.toString() + " " + numberOfQuestions;
     }
-
 
     @Override
     public int compare(AbstractTest o) {
         Test test = (Test) o;
-        return this.getNumberOfQuestions() - ((Test) o).getNumberOfQuestions();
+        return this.getNumberOfQuestions() - test.getNumberOfQuestions();
+    }
+
+    public int compare2(AbstractTest o){
+//        Test test = (Test) o;
+        if(this.getClass().getName().compareTo(o.getClass().getName()) == 0) {
+            return this.getNumberOfQuestions() - ((Test) o).getNumberOfQuestions();
+        }
+        else return this.getClass().getName().compareTo(o.getClass().getName());
     }
 }

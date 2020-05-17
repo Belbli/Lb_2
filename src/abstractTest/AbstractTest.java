@@ -1,9 +1,11 @@
-package AbstractTest;
+package abstractTest;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-public abstract class AbstractTest implements AbstractTestComparable{
+public abstract class AbstractTest implements AbstractTestComparable, Serializable {
     public static int objectsCreatedCount = 0;
     private String subject;
     private short duration;
@@ -11,6 +13,7 @@ public abstract class AbstractTest implements AbstractTestComparable{
     private Date date;
 
     public AbstractTest(){}
+    
 
     public AbstractTest(String subject, short duration, short mark, Date date) {
         this.subject = subject;
@@ -57,11 +60,11 @@ public abstract class AbstractTest implements AbstractTestComparable{
     }
     @Override
     public String toString() {
-        return "AbstractTest{" +
-                "subject='" + subject + '\'' +
-                ", duration=" + duration +
-                ", mark=" + mark +
-                '}' + "date=" + date + ' ';
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return  subject + " " +
+                duration + " " +
+                mark + " " +
+                dateFormat.format(date);
     }
 
     public Date getDate() {
@@ -86,4 +89,5 @@ public abstract class AbstractTest implements AbstractTestComparable{
     public int hashCode() {
         return Objects.hash(subject, duration, mark);
     }
+
 }

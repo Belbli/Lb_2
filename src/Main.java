@@ -1,31 +1,23 @@
-import AbstractTest.*;
-import Converter.TestConverterFactory;
-import list.LinkedList;
+import abstractTest.*;
+import io.FileReaderWriter;
+import menu.Menu;
+import exeption.ConverterParseExeption;
+import exeption.TestTypeExeption;
+import io.ReaderWriter;
 
+import java.io.*;
+import java.lang.reflect.Array;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 
 public class Main {
-    public static int search(List<AbstractTest> list, AbstractTest at){
-        int index = 0;
-        for (AbstractTest it : list){
-            if(it.equals(at)) {
-                System.out.println("Founded! Index = " + index + ":\n" + it);
-                return index;
-            }
-            index++;
-        }
-        System.out.println("Not founded(");
-        return -1;
-    }
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, FileNotFoundException {
         Date date = new Date();
+
         Test test = new Test("OOP", (short) 120, (short) 10, date, 3);
         Test test2 = new Test("OOP", (short) 120, (short) 9, date, 3);
-        //Exam exam = new Exam();
         FinalExam finalExam = new FinalExam("OOP", (short) 90, (short) 9, date, "Glyhova", true);
         FinalExam finalExam1 = new FinalExam(finalExam);
         Exam exam1 = new Exam("KSIS", (short) 120, (short) 8, date,"Rysetckiyy");
@@ -33,90 +25,211 @@ public class Main {
         FinalExam finalExam2 = new FinalExam("POASYTP", (short) 120, (short) 8, date, "Kravchenko", false);
         Exam exam2 = new Exam("Math", (short) 180, (short) 9, date, "Golybeva");
         Exam exam3 = new Exam("OAiP", (short) 90, (short) 10, date, "Oskin");
-       /* System.out.println(finalExam.equals(finalExam1));
-        System.out.println(test.equals(test2) + "\n" + test2.equals(test) + "\n" + AbstractTest.objectsCreatedCount);
 
-        List<AbstractTest> tests = new ArrayList<>();
-        tests.add(test);
-        tests.add(test2);
-        tests.add(exam);
-        tests.add(finalExam);
-        tests.add(finalExam1);
-        tests.add(exam1);
-        tests.add(test1);
-        tests.add(finalExam2);
-        tests.add(exam2);
-        tests.add(exam3);
+        List<AbstractTest> at = new ArrayList<>();
+        at.add(exam1);
 
 
-        search(tests, exam2);
+        exam1.writeToJSON("1234.json");
+        exam1.readFromJSON("1234.json");
 
-        System.out.println(tests);
-        Scanner scanner = new Scanner(System.in);
-        String buff;
-        String type;
-        System.out.println("\nEnter type of test: ");
-        while (!(type = scanner.nextLine()).isEmpty()){
-            System.out.println("Enter test info: ");
-            buff = scanner.nextLine();
-            AbstractTest convert = TestConverterFactory.getConverter(type).convert(buff);
-            tests.add(convert);
-            System.out.println("\nEnter type of test: ");
-        }
+//Math|180|10|07/07/2018|Examiner
+        /*List<AbstractTest> testList = new ArrayList();
+        List<AbstractTest> testList2 = new ArrayList();
 
-        scanner.close();
-        System.out.println(tests);*/
+        testList.add(test);
+        testList.add(test1);
+        testList.add(test2);
+        testList.add(exam1);
+        testList.add(exam2);
+        testList.add(exam3);
+        testList.add(finalExam);
+        testList.add(finalExam1);
+        testList.add(finalExam2);
+        
 
-        LinkedList<AbstractTest> tests = new LinkedList<>();
-        tests.add(test);
-        tests.add(test2);
+        String[] menu = {
+                "1.Display collection",
+                "2.Add element",
+                "3.Sort collection",
+                "4.Search",
+                "5.Save to file",
+                "6.Load from file",
+                "7.Exit"
+        };
 
-        tests.add(finalExam);
-        tests.add(finalExam1);
-        tests.add(exam1);
-        tests.add(test1);
-        tests.add(finalExam2);
-        tests.add(exam2);
-        tests.add(exam3);
-        /*for (int i = 10; i < 20; i++) {
-            list.add(i);
+        String[] addMenuItems = {
+                "1.Exam",
+                "2.Test",
+                "3.Final Exam",
+                "4.Drive Exam",
+                "5.Exit"
+        };
+
+        String[] sortDirection = {
+                "1.Min-Max",
+                "2.Max-Min"
+        };
+
+        String[] sortField = {
+                "1.Sort by subject",
+                "2.Sort by duration",
+                "3.Sort by mark"
+        };
+
+        Menu mainMenu = new Menu(menu);
+        Menu addMenu = new Menu(addMenuItems);
+        Menu sortDirectionMenu = new Menu(sortDirection);
+        Menu sortFieldMenu = new Menu(sortField);
+
+        ReaderWriter rw = new ReaderWriter();
+
+
+        int operation = 0;
+
+        while(operation != 7){
+            operation = mainMenu.displayMenu();
+            switch (operation){
+                case 1:
+                    for(AbstractTest it: testList) {
+                        System.out.println(it + "\n");
+                    }
+                    break;
+                case 2:
+                    int menuItem = 0;
+                    while (menuItem < addMenuItems.length) {
+                        TestType inputType = null;
+                        System.out.println("Choose adding test type (1-4)");
+                        menuItem = addMenu.displayMenu();
+                        switch (menuItem) {
+                            case 1:
+                                inputType = TestType.resolve("exam");
+                                break;
+                            case 2:
+                                inputType = TestType.resolve("test");
+                                break;
+                            case 3:
+                                inputType = TestType.resolve("final exam");
+                                break;
+                            case 4:
+                                inputType = TestType.resolve("drive exam");
+                            default:
+                                break;
+                        }
+                       if(inputType != null) {
+                           try {
+                               testList.add(rw.read(inputType));
+                           } catch (ConverterParseExeption e) {
+                               System.err.println("Check your input data");
+                           }
+                       }
+                    }
+                    break;
+                case 3:
+                    int direction = 0;
+                    while (direction == 0){
+                        System.out.println("Choose sort direction (1-2)");
+                        direction = sortDirectionMenu.displayMenu();
+                    }
+                    int field = 0;
+                    while (field == 0) {
+                        System.out.println("Choose sort field (1-3)");
+                        field = sortFieldMenu.displayMenu();
+                        switch (field) {
+                            case 1:
+                                if(direction == 1) {
+                                    testList.sort((x, y) -> x.getSubject().compareTo(y.getSubject()));
+                                } else {
+                                    testList.sort((x, y) -> y.getSubject().compareTo(x.getSubject()));
+                                }
+                                break;
+                            case 2:
+                                if(direction == 1) {
+                                    testList.sort((x, y) -> x.getDuration() - y.getDuration());
+                                } else {
+                                    testList.sort((x, y) -> y.getDuration() - x.getDuration());
+                                }
+                                break;
+                            case 3:
+                                if(direction == 1) {
+                                    testList.sort((x, y) -> x.getMark() - y.getMark());
+                                } else {
+                                    testList.sort((x, y) -> y.getMark() - x.getMark());
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                   // testList.sort(AbstractTest::compare2);
+                    //testList.sort((x, y) -> y.compare2(x));
+                    System.out.println(testList);
+                    break;
+                case 4:
+                    int searchMenuItem = 0;
+                    while (searchMenuItem < addMenuItems.length) {
+                        TestType searchType = null;
+                        System.out.println("Choose searching test type (1-3)");
+                        searchMenuItem = addMenu.displayMenu();
+                        switch (searchMenuItem) {
+                            case 1:
+                                searchType = TestType.resolve("exam");
+                                break;
+                            case 2:
+                                searchType = TestType.resolve("test");
+                                break;
+                            case 3:
+                                searchType = TestType.resolve("final exam");
+                                break;
+                            default:
+                                break;
+                        }
+                        if(searchType != null) {
+                            try {
+                                System.out.println(testList.contains(rw.read(searchType)));
+                            } catch (TestTypeExeption e) {
+                                System.err.println("Check your input data");
+                            }
+                        }
+                    }
+
+                    break;
+                case 5:
+                    try {
+                        new FileReaderWriter().write(testList);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 6:
+                    try {
+                        testList2 = new FileReaderWriter().read();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(testList2);
+                    break;
+                case 7:
+                    System.exit(0);
+                    break;
+                default:
+                    break;
+            }
         }*/
-        //list.add(0, 1000);
-        //list.delete(0);
-        //System.out.println(list.getLast());
-        //list.deleteAll();
-        //list.changeByIndex(0, 100);
 
-        /*System.out.println(tests);
-        tests.swap(tests.getByIndex(0), tests.getByIndex(1));
-        System.out.println(tests);*/
+    }
+}
 
-        Map <String, BiFunction<? extends AbstractTest, ? extends AbstractTest, Integer>> sortMapping = new HashMap<>();
-        BiFunction<AbstractTest, AbstractTest, Integer> subjectSort = (left, right) -> left.getSubject().compareTo(right.getSubject());
-        BiFunction<AbstractTest, AbstractTest, Integer> durationSort = (left, right) -> left.getDuration() - right.getDuration();
-        BiFunction<AbstractTest, AbstractTest, Integer> markSort = (left, right) -> left.getMark() - right.getMark();
-        BiFunction<AbstractTest, AbstractTest, Integer> dateSort = (left, right) -> left.getDate().compareTo(right.getDate());
-        BiFunction<Test, Test, Integer> numOfQuestionsSort = (left, right) -> left.getNumberOfQuestions() - right.getNumberOfQuestions();
-        BiFunction<Exam, Exam, Integer> examinerSort = (left, right) -> left.getExaminer().compareTo(right.getExaminer());
 
-        sortMapping.put("subjectSort", subjectSort);
-        sortMapping.put("durationSort", durationSort);
-        sortMapping.put("markSort", markSort);
-        sortMapping.put("dateSort", dateSort);
-        sortMapping.put("numOfQuestionsSort", numOfQuestionsSort);
-        sortMapping.put("examinerSort", examinerSort);
 
-        /*LinkedList<Integer> l = new LinkedList<>();
-        l.add(10);
-        l.add(1);
-        l.add(5);
-        l.add(15);
-        l.swap(l.getByIndex(1), l.getByIndex(2));
-        System.out.println(l);*/
-        tests = tests.sort(tests, durationSort);
-       // System.out.println(tests.getByIndex(0) + "\n" + test);
-        //tests.swap(tests.getByIndex(0), tests.getByIndex(1));
-        System.out.println(tests);
+class TaskA {
+    public static long countFilesWithExtension(String catalog, String extension) {
+        File file = new File(catalog);
+        long count = Arrays.stream(file.list())
+                .filter(f -> f.substring(f.lastIndexOf('.')+1).equals(extension))
+                .count();
 
+
+        return count;
     }
 }

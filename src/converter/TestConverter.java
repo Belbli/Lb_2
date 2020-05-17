@@ -1,9 +1,9 @@
-package Converter;
+package converter;
 
 
-import AbstractTest.Test;
+import abstractTest.Test;
+import exeption.ConverterParseExeption;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class TestConverter implements Converter<String, Test> {
@@ -14,8 +14,8 @@ public class TestConverter implements Converter<String, Test> {
             return new Test(fields[0], Short.parseShort(fields[1]),
                     Short.parseShort(fields[2]),  new SimpleDateFormat("dd/MM/yyyy").parse(fields[3]),
                     Integer.parseInt(fields[4]));
-        } catch (ParseException e) {
-            throw new IllegalArgumentException(String.format("Cannot parse entered date: %s", fields[4]));
+        } catch (Exception e) {
+            throw new ConverterParseExeption(String.format("Can not parse next string : ", source));
         }
     }
 }

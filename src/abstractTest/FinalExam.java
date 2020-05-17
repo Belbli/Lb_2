@@ -1,9 +1,9 @@
-package AbstractTest;
+package abstractTest;
 
 import java.util.Date;
 import java.util.Objects;
 
-public class FinalExam extends Exam implements AbstractTestComparable{
+public class FinalExam extends Exam{
     private boolean isOral;
 
     public FinalExam(){
@@ -45,14 +45,20 @@ public class FinalExam extends Exam implements AbstractTestComparable{
 
     @Override
     public String toString() {
-        return super.toString() + "FinalExam{" +
-                "isOral=" + isOral +
-                '}' + '\n';
+        return super.toString() + " " + isOral;
     }
 
     @Override
     public int compare(AbstractTest o) {
         FinalExam test = (FinalExam) o;
         return this.getSubject().compareTo(test.getSubject());
+    }
+
+    public int compare2(AbstractTest o){
+        //FinalExam test = (FinalExam) o;
+        if(this.getClass().getName().compareTo(o.getClass().getName()) == 0) {
+            return this.getSubject().compareTo(((FinalExam) o).getSubject());
+        }
+        else return this.getClass().getName().compareTo(o.getClass().getName());
     }
 }

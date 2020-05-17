@@ -1,5 +1,5 @@
 package list;
-import AbstractTest.AbstractTest;
+import abstractTest.AbstractTest;
 
 import java.util.function.BiFunction;
 
@@ -197,26 +197,15 @@ public class LinkedList <E extends AbstractTest>{
             Node<E> le = list.first;
             flag = false;
             while (le != list.last) {
-                if (le.item.getClass().getName().compareTo(le.next.item.getClass().getName()) > 0) {
+               /* if (le.item.getClass().getName().compareTo(le.next.item.getClass().getName()) > 0 ||
+                    le.item.getClass().getName().compareTo(le.next.item.getClass().getName()) == 0 && le.item.compare(le.next.item) > 0){*/
+                if(le.item.compare2(le.next.item) < 0){
                     swap(le, le.next);
                     flag = true;
                 }
                 le = le.next;
             }
         }
-        flag = true;
-        while (flag) {
-            Node<E> le = list.first;
-            flag = false;
-            while (le != list.last) {
-                if (le.item.getClass().getName().compareTo(le.next.item.getClass().getName()) == 0 && le.item.compare(le.next.item) > 0) {
-                    swap(le, le.next);
-                    flag = true;
-                }
-                le = le.next;
-            }
-        }
-
         return list;
     }
 }

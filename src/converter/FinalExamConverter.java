@@ -1,8 +1,8 @@
-package Converter;
+package converter;
 
-import AbstractTest.FinalExam;
+import abstractTest.FinalExam;
+import exeption.ConverterParseExeption;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class FinalExamConverter implements Converter<String, FinalExam> {
@@ -13,8 +13,8 @@ public class FinalExamConverter implements Converter<String, FinalExam> {
             return new FinalExam(fields[0], Short.parseShort(fields[1]),
                     Short.parseShort(fields[2]), new SimpleDateFormat("dd/MM/yyyy").parse(fields[3]),
                     fields[4], Boolean.parseBoolean(fields[5]));
-        } catch (ParseException e) {
-            throw new IllegalArgumentException(String.format("Cannot parse entered date: %s", fields[3]));
+        } catch (Exception e) {
+            throw new ConverterParseExeption(String.format("Can not parse next string : ", source));
         }
     }
 }
